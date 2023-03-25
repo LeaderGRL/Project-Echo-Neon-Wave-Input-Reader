@@ -29,13 +29,14 @@ void setup() {
   }
 
   void loop() {
-    Serial.println (String(leftCounter) + " - "  + String(rightCounter));
+    Serial.println (String(leftCounter) + ";"  + String(rightCounter));
     if(uduino.isConnected())
     {
+       //Serial.println (rightCounter);
       if( rightCounter != temp )
       {
         //v = map(counter, 0, 1000, -4.5, 4.5);
-        Serial.println (rightCounter);
+        //Serial.println (rightCounter);
         temp = rightCounter;
       }
     }
