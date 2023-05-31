@@ -5,6 +5,7 @@ volatile float temp, leftCounter = -4.5f, rightCounter = 4.5f; //This variable w
 Uduino uduino("encoder");
 bool right = false;
 float v;
+bool FL = false, L = false, R = false, FR = false;
 
 void setup() {
   Serial.begin (9600);
@@ -13,6 +14,10 @@ void setup() {
   pinMode(2, INPUT_PULLUP); // broche B de l'encodeur droit
   pinMode(5, INPUT_PULLUP); // broche A de l'encodeur gauche
   pinMode(3, INPUT_PULLUP); // broche B de l'encodeur gauche
+  pinMode(10, INPUT_PULLUP);
+  pinMode(11, INPUT_PULLUP);
+  pinMode(12, INPUT_PULLUP);
+  pinMode(9, INPUT_PULLUP);
 
   // pinMode(2, INPUT_PULLUP); // internal pullup input pin 2 
   // pinMode(3, INPUT_PULLUP); // internal pullup input pin 3
@@ -29,7 +34,13 @@ void setup() {
   }
 
   void loop() {
-    Serial.println (String(leftCounter) + ";"  + String(rightCounter));
+    FL = false;
+    L = false;
+    R = false;
+    FR = false;
+    readInput();
+
+    Serial.println (String(leftCounter) + ";"  + String(rightCounter) + ";" + String(FL) + ";" + String(L) + ";" + String(R) + ";" + String(FR));
     if(uduino.isConnected())
     {
        //Serial.println (rightCounter);
@@ -61,6 +72,27 @@ void setup() {
     {
       rightCounter = -4.5;
     }
+  }
+
+  void readInput()
+  {
+    //Serial.println("test");
+    if (digitalRead(10) == LOW)
+    {
+      FL = true;
+    }
+    if (digitalRead(11) == LOW)
+    {
+      L = true;
+    }
+    if (digitalRead(12) == LOW)
+    {
+      R = true;
+    }
+    if (digitalRead(9) == LOW)
+    {
+      FR = true;
+    }  
   }
 
   // void ai1() {
